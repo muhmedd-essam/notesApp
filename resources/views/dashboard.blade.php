@@ -12,10 +12,10 @@
                     {{ __("You're logged in!") }}
                 </div>
                 <div class="p-6 text-gray-900 dark:text-gray-100">
-                     <a href="{{route('create.note')}}">{{ __("create note") }}</a>
+                    <a href="{{route('notes.create')}}">{{ __("create note") }}</a>
                 </div>
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <a href="{{route('show.note')}}">{{ __("the notes") }}</a>
+               <div class="p-6 text-gray-900 dark:text-gray-100">
+                    <a href="{{route('notes.index')}}"> {{ __("the notes") }} </a>
                </div>
             </div>
         </div>

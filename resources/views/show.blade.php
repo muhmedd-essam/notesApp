@@ -7,16 +7,16 @@
 </head>
 <body>
     <table>
+        @csrf
+
     <tr>
         <th>title</th>
         <th>the note</th>
     </tr>
-    @foreach($notes as $note)
     <tr>
         <td>{{$note->title}}</td>
         <td>{{$note->note}}</td>
     </tr>
-    @endforeach
 </table>
 </body>
 </html>

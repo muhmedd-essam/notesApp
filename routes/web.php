@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\NotesController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,10 +28,17 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/createnote',[Controller::class, 'goToCreate'])->name('create.note');
-    Route::post('/createnote', [Controller::class, 'createNote'])->name('create.note');
+    Route::get('/notes/create',[NotesController::class, 'create'])->name('notes.create');
+    Route::post('/notes', [NotesController::class, 'store'])->name('notes.store');
 
-    Route::get('/shownote',[Controller::class, 'goToNotes'])->name('show.note');
+    Route::get('/notes',[NotesController::class, 'index'])->name('notes.index');
+
+    Route::get('/notes/{note}/edit', [NotesController::class,'edit'])->name('notes.edit');
+    Route::PUT('/notes/{note}', [NotesController::class,'update'])->name('notes.update');
+
+    Route::delete('/notes/{note}', [NotesController::class,'destroy'])->name('notes.destroy');
+
+    Route::get('/notes/{note}', [NotesController::class,'show'])->name('notes.show');
 
 });
 

@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'id',
     ];
 
     /**
@@ -44,6 +45,6 @@ class User extends Authenticatable
     ];
     public function notes()
     {
-        return $this->hasMany(Note::class);
+        return $this->hasMany(Note::class, 'idUser', 'id');
     }
 }
