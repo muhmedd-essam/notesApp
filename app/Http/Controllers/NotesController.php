@@ -16,46 +16,62 @@ class NotesController extends Controller
     }
 
     public function store(noteStoreRequest $request){
-        $user = Auth::user();
+        // dd($request->all());
         $note = new Note();
-        $note->idUser = $user->id;
+        // $note->idUser = $user->id;
         $note->title = $request->input('noteTitle');
         $note->note = $request->input('noteContent');
         $note->save();
 
-        return redirect(route('notes.index'));
+        return response()->json(['message' => 'Note created successfully','note' => $note], 200);
     }
 
     public function index(){
+        // $user = Auth::user();
         $user = Auth::user();
-        $notes = Note::where('idUser', $user->id)->get();
-        return view("index", ['notes'=>$notes]);
+        $notes = Note::with('user')->where('user_id', 1)->get();
+        // dd($notes);
+        // $notes= Note::all();
+    // dd(Note::with("user")->first());
+        return response()->json($notes);
     }
 
     public function edit($note){
         $singleNote=Note::Find($note);
-        return view('edit',['singleNote'=>$singleNote]);
+        return response()->json($singleNote);
 
     }
 
     public function update($note, noteUpdateRequest $request){
+
         $singleNote=Note::Find($note);
+        if (!$singleNote) {
+            return response()->json(['message' => 'Note not found'], 404);
+        }
         $singleNote->update([
             'title'=> $request->input('noteTitle'),
             'note'=> $request->input('noteContent')
         ]);
-        return redirect(route('notes.index'));
+        return response()->json(['message' => 'Note not found','note' => $singleNote]);
 
     }
 
     public function destroy($note){
         $singleNote=Note::Find($note);
+        if (!$singleNote){
+            return response()->json(['message' => 'Note not found']);
+
+
+        };
         $singleNote->delete();
-        return redirect(route('notes.index'));
+        return response()->json(['message' => 'done delete']);
     }
 
     public function show($id){
         $note=Note::find($id);
-        return view('show', ['note'=>$note]);
+        if (!$note) {
+            return response()->json(['message' => 'Note not found'], 404);
+        }
+        return response()->json($note);
     }
 }

@@ -6,18 +6,19 @@
     <title>the notes</title>
 </head>
 <body>
-    <table>
+    <table border="1">
         @csrf
-
-
     <tr>
         <th>title</th>
         <th>the note</th>
+        <th>user id </th>
     </tr>
     @foreach($notes as $note)
+    {{-- @dd($notes) --}}
     <tr>
         <td>{{$note->title}}</td>
         <td>{{$note->note}}</td>
+        <td>{{$note->idUser}}</td>
         <td><a href="{{route('notes.show', ['note'=>$note->id])}}" name="{{$note->id}}" value="{{$note->id}}">view</a></td>
         <td><a href="{{route('notes.edit', ['note'=>$note->id])}}" name="{{$note->id}}" value="{{$note->id}}">update</a></td>
         <td>
